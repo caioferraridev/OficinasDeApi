@@ -1,33 +1,109 @@
-const botao = document.getElementById("buscarBtn");
-const usuariosDiv = document.getElementById("usuarios");
+const url = "/livros";
 
-botao.addEventListener("click", async () => {
+const livrosDiv = document.getElementById("livros");
 
-    usuariosDiv.innerHTML = "Carregando...";
+const mensagem = document.getElementById("mensagem");
 
-    try {
+async function carregarLivros(){
 
-        const resposta = await fetch("/usuarios");
+    const resposta = await fetch(url);
 
-        const usuarios = await resposta.json();
+    const livros = await resposta.json();
 
-        usuariosDiv.innerHTML = "";
+    renderizarLivros(livros);
+}
 
-        usuarios.forEach(usuario => {
+function renderizarLivros(livros){
 
-            usuariosDiv.innerHTML += `
-                <div class="card">
-                    <h3>${usuario.nome}</h3>
-                    <p>Email: ${usuario.email}</p>
-                    <p>Telefone: ${usuario.telefone}</p>
-                </div>
-            `;
-        });
+    livrosDiv.innerHTML = "";
 
-    } catch (erro) {
+    livros.forEach(livro => {
 
-        usuariosDiv.innerHTML = "Erro ao buscar usuários.";
+        livrosDiv.innerHTML += `
+            <div class="card">
 
-        console.log(erro);
-    }
+                <img src="${livro.imagem}">
+
+                <h2>${livro.titulo}</h2>
+
+                <p><strong>Autor:</strong> ${livro.autor}</p>
+
+                <p><strong>Categoria:</strong> ${livro.categoria}</p>
+
+                <p>${livro.descricao}</p>
+
+                <p><strong>Ano:</strong> ${livro.ano}</p>
+
+                <p><strong>Avaliação:</strong> ⭐ ${livro.avaliacao}</p>
+
+                <button onclick="deletarLivro(${livro.id})">
+                    Excluir
+                </button>
+
+            </div>
+        `;
+    });
+}
+
+document
+.getElementById("formLivro")
+.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const livro = {
+        titulo: titulo.value,
+        autor: autor.value,
+        categoria: categoria.value,
+        descricao: descricao.value,
+        ano: ano.value,
+        avaliacao: avaliacao.value,
+        imagem: imagem.value
+    };
+
+    await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(livro)
+    });
+
+    mensagem.innerHTML = "Livro cadastrado!";
+
+    carregarLivros();
 });
+
+async function deletarLivro(id){
+
+    await fetch(`${url}/${id}`, {
+        method: "DELETE"
+    });
+
+    mensagem.innerHTML = "Livro removido.";
+
+    carregarLivros();
+}
+
+async function buscarLivros(){
+
+    const busca =
+    document
+    .getElementById("campoBusca")
+    .value;
+
+    const resposta =
+    await fetch(
+    `${url}?titulo=${busca}`
+    );
+
+    const livros =
+    await resposta.json();
+
+    renderizarLivros(livros);
+
+    mensagem.innerHTML =
+    "Busca realizada.";
+}
+
+carregarLivros();

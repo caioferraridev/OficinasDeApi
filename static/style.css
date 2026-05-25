@@ -1,39 +1,33 @@
 body{
     font-family: Arial;
     background: #f4f4f4;
-    margin: 0;
-    padding: 0;
 }
 
 .container{
-    width: 80%;
+    width: 90%;
     margin: auto;
-    margin-top: 40px;
 }
 
-h1{
-    text-align: center;
+input{
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
 }
 
 button{
-    display: block;
-    margin: 20px auto;
-    padding: 12px 20px;
-    border: none;
-    background: #007bff;
-    color: white;
+    padding: 10px;
+    margin: 10px 0;
     cursor: pointer;
-    border-radius: 5px;
-}
-
-button:hover{
-    background: #0056b3;
 }
 
 .card{
     background: white;
+    margin-top: 20px;
     padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+.card img{
+    width: 120px;
+    border-radius: 10px;
 }

@@ -3,23 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPA Consumindo API</title>
+    <title>Biblioteca SPA</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
     <div class="container">
-        <h1>Lista de Usuários</h1>
 
-        <button id="buscarBtn">
-            Buscar Usuários
+        <h1>Painel da Biblioteca</h1>
+
+        <input type="text" id="campoBusca" placeholder="Buscar livro">
+
+        <button onclick="buscarLivros()">
+            Buscar
         </button>
 
-        <div id="usuarios"></div>
+        <h2>Cadastrar Livro</h2>
+
+        <form id="formLivro">
+
+            <input type="text" id="titulo" placeholder="Título">
+
+            <input type="text" id="autor" placeholder="Autor">
+
+            <input type="text" id="categoria" placeholder="Categoria">
+
+            <input type="text" id="descricao" placeholder="Descrição">
+
+            <input type="number" id="ano" placeholder="Ano">
+
+            <input type="number" id="avaliacao" placeholder="Avaliação">
+
+            <input type="text" id="imagem" placeholder="URL da imagem">
+
+            <button type="submit">
+                Salvar
+            </button>
+
+        </form>
+
+        <div id="mensagem"></div>
+
+        <div id="livros"></div>
+
     </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="/static/script.js"></script>
 
 </body>
 </html>
